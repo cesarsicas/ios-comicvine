@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct CharactersScreen: View {
+    @StateObject private var viewModel = CharacterViewModel()
+    
     var body: some View {
-        CharacteresList()
+        NavigationView {
+            VStack {
+                CharacteresList(
+                    characters: viewModel.characters,
+                    isLoading: viewModel.isLoading,
+                    errorMessage: viewModel.errorMessage, // Pass the error message
+                    loadMore: {
+                        await viewModel.loadMoreCharacters()
+                    }
+                )
+            }
+            .task {
+                await viewModel.loadInitialCharacters()
+            }
+        }
     }
 }
 

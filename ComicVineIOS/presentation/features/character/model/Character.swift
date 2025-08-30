@@ -6,8 +6,10 @@
 //
 import Foundation
 
-struct Character: Identifiable {
-    let id = UUID().uuidString // A unique identifier for each character
+struct Character : Identifiable, Equatable {
+    let id = UUID() // This makes the struct Identifiable
     let name: String
-    let imageUrlString: String
+    let aliases: String
+    let imageUrl: String
+    let description:String
 }
