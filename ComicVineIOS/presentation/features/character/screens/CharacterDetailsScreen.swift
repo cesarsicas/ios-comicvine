@@ -23,7 +23,7 @@ struct CharacterDetailsScreen: View {
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                             .shadow(radius: 10)
                             .padding(.horizontal)
-                            .frame(maxWidth: 400) // Constrain max width for larger screens
+                            .frame(maxWidth: 400, maxHeight: 300) // Constrain max width for larger screens
                     case .failure:
                         Image(systemName: "photo")
                             .resizable()

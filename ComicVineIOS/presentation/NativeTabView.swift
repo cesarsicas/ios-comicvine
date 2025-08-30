@@ -16,7 +16,7 @@ struct NativeTabView: View {
                     CharactersScreen()
                 }
             }
-            
+        
             Tab.init("Search", systemImage: "magnifyingglass"){
                 NavigationStack{
                     List{

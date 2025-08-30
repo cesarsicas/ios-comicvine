@@ -10,13 +10,8 @@ import SwiftUI
 
 import SwiftUI
 
-import SwiftUI
-
 struct CharactersScreen: View {
     @StateObject private var viewModel = CharacterViewModel()
-    @SceneStorage("lastViewedCharacterId") private var lastViewedCharacterId: String?
-    @State private var didRestoreScroll = false
-    @State private var activeCharacterId: UUID?
 
     let columns = [
         GridItem(.flexible()),
@@ -25,47 +20,41 @@ struct CharactersScreen: View {
 
     var body: some View {
         NavigationStack {
-            ScrollViewReader { proxy in
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(viewModel.characters) { character in
-                            Button {
-                                activeCharacterId = character.id
-                                lastViewedCharacterId = character.id.uuidString
-                            } label: {
-                                CharacterItem(imageUrlString: character.imageUrl)
-                            }
-                            .id(character.id)
-                            .onAppear {
-                                // Infinite scroll, load more at end
-                                if character.id == viewModel.characters.last?.id {
-                                    Task {
-                                        await viewModel.loadMoreCharacters()
-                                    }
-                                }
-                            }
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(viewModel.characters) { character in
+                        NavigationLink(destination: CharacterDetailsScreen(character: character)) {
+                            CharacterItem(imageUrlString: character.imageUrl)
                         }
                     }
-                    .padding()
-                }
-                .task {
-                    // Load initial data
-                    await viewModel.loadInitialCharacters()
-
-                    // Restore scroll position only after initial characters are loaded
-                    if !didRestoreScroll,
-                       let lastId = lastViewedCharacterId,
-                       let uuid = UUID(uuidString: lastId),
-                       viewModel.characters.contains(where: { $0.id == uuid }) {
-                           proxy.scrollTo(uuid, anchor: .top)
-                           didRestoreScroll = true
-                       }
-                }
-                .navigationDestination(item: $activeCharacterId) { id in
-                    if let character = viewModel.characters.first(where: { $0.id == id }) {
-                        CharacterDetailsScreen(character: character)
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .frame(maxWidth: .infinity)
                     }
                 }
+                .padding()
+                // Show "Load More" button if not loading
+                if !viewModel.isLoading {
+                    Button(action: {
+                        Task {
+                            await viewModel.loadMoreCharacters()
+                        }
+                    }) {
+                        Text("Load More")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.accentColor)
+                            .cornerRadius(12)
+                            .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 20)
+                }
+            }
+            .task {
+                await viewModel.loadInitialCharacters()
             }
         }
     }
