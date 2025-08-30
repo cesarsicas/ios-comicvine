@@ -14,7 +14,7 @@ class CharacterViewModel: ObservableObject {
     @Published var errorMessage: String?
     
     private var offset: Int = 0
-    private let limit: Int = 10
+    private let limit: Int = 5
 
     private let interactor: GetCharactersInteractor
 
