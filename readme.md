@@ -7,6 +7,9 @@ An iOS client for [Comic Vine](https://comicvine.gamespot.com/), built using Swi
 * **SwiftUI-Based UI:** The user interface is built entirely with Apple's declarative UI framework, SwiftUI.
 * **MVVM Architecture:** The project follows the Model-View-ViewModel architectural pattern for a clear separation of concerns, making the codebase more testable and maintainable.
 
+## Preview
+https://github.com/user-attachments/assets/b0476baa-a5f4-4969-b04f-31b8d0c5b54a
+
 ## Technologies Used
 
 * **Swift:** The primary programming language for iOS development.
