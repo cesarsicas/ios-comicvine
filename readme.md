@@ -24,9 +24,6 @@ To run this project, you will need:
 * An internet connection to fetch Comic Vine data.
 
 1.  Clone the repository:
-    ```bash
-    git clone [https://github.com/cesarsicas/ios-comicvine.git](https://github.com/cesarsicas/ios-comicvine.git)
-    ```
 2.  Open the project in Xcode.
 3.  Replace the apikey on file ComicVineService with YOUR API KEY 
 3.  Build and run the app on a simulator or a physical device.
