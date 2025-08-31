@@ -33,28 +33,19 @@ struct SearchCharacter: View {
             }
             .padding(.top)
 
-            if viewModel.isLoading {
-                ProgressView()
-                Spacer() // This pushes the ProgressView to the top
-            } else {
-                if(!viewModel.characters.isEmpty){
-                    CharacterList(
-                        characters: viewModel.characters,
-                        isLoading: viewModel.isLoading,
-                        onInitialLoad: {
-                            //do nothing
-                        },
-                        onPaginate: {
-                            Task {
-                                await viewModel.loadMoreCharacters()
-                            }
-                        }
-                    )
+            CharacterList(
+                characters: viewModel.characters,
+                isLoading: viewModel.isLoading,
+                onInitialLoad: {
+    
+                },
+                onPaginate: {
+                    Task {
+                        await viewModel.loadMoreCharacters()
+                    }
+
                 }
-                else{
-                    Spacer()
-                }
-            }
+            )
         }
     }
 }

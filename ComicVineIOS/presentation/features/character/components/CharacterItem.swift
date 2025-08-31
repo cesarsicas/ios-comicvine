@@ -18,9 +18,9 @@ struct CharacterItem: View {
                         image
                              .resizable()
                              .aspectRatio(contentMode: .fill) // Fills the frame, potentially cropping
-                             .frame(width: geometry.size.width, height: 300.0)
+                             .frame(width: geometry.size.width, height: geometry.size.width)
                              .clipped()
-                             .offset(y: 0) // Align to the top of the frame
+                             .offset(y: 0)
                     } placeholder: {
                         ProgressView()
                             .frame(width: geometry.size.width, height: geometry.size.width) // Match the placeholder size
@@ -32,7 +32,7 @@ struct CharacterItem: View {
                 }
             }
         }
-        .aspectRatio(1, contentMode: .fit) // Ensure the entire view is a square
+        .aspectRatio(1, contentMode: .fit) 
     }
 }
 
