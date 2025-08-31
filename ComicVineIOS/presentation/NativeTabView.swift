@@ -19,9 +19,7 @@ struct NativeTabView: View {
         
             Tab.init("Search", systemImage: "magnifyingglass"){
                 NavigationStack{
-                    List{
-                        
-                    }.navigationTitle("Search")
+                    SearchCharacter()
                 }
             }
         }
